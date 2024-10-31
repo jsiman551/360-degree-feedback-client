@@ -1,11 +1,11 @@
+import LoginForm from "./components/forms/loginForm"
+
 function App() {
 
   return (
-    <>
-      <h1 className="text-3xl font-bold underline">
-        hola mundo
-      </h1>
-    </>
+    <div className="h-screen bg-gray-100">
+      <LoginForm />
+    </div>
   )
 }
 
