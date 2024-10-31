@@ -1,29 +1,45 @@
 import React from 'react';
+import { useForm } from 'react-hook-form';
 import Input from '../input';
 import Button from '../button';
 
+interface FormValues {
+    username: string;
+    password: string;
+}
+
 const LoginForm: React.FC = () => {
+    const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
+
+    const onSubmit = (data: FormValues) => {
+        console.log(data);
+    };
+
     return (
-        <div className="flex items-center justify-center h-screen p-4 bg-slate-50 dark:bg-slate-800">
-            <div className="w-full max-w-sm p-8 space-y-6 bg-white shadow-lg rounded-lg dark:bg-slate-800 dark:border">
+        <div className="flex items-center justify-center h-screen p-4">
+            <div className="w-full max-w-sm p-8 space-y-6 bg-white shadow-lg rounded-lg dark:bg-slate-900 dark:border dark:border-slate-700">
                 <h2 className="text-2xl font-bold text-slate-800 dark:text-slate-100 text-center">
                     Welcome to 360 Degree Feedback App
                 </h2>
-                <form className="space-y-4">
+                <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
                     <Input
-                        type="email"
-                        placeholder="mail@example.com"
-                        label="Email:"
+                        type="text"
+                        placeholder="jhon"
+                        label="Username:"
                         className="bg-transparent dark:bg-transparent dark:text-slate-100"
-                        required
+                        {...register('username', { required: 'Username is required' })}
                     />
+                    {errors.username && <span className="text-red-500 pt-2">{errors.username.message}</span>}
+
                     <Input
                         type="password"
                         placeholder="********"
                         label="Password:"
                         className="bg-transparent dark:bg-transparent dark:text-slate-100"
-                        required
+                        {...register('password', { required: 'Password is required' })}
                     />
+                    {errors.password && <span className="text-red-500 pt-2">{errors.password.message}</span>}
+
                     <Button type="submit" className="btn btn-primary w-full">
                         Login
                     </Button>

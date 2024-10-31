@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
     label?: string;
@@ -6,7 +6,7 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
     inputSize?: 'input-lg' | 'input-md' | 'input-sm' | 'input-xs';
 }
 
-const Input: React.FC<InputProps> = ({
+const Input = forwardRef<HTMLInputElement, InputProps>(({
     type = 'text',
     placeholder,
     label,
@@ -14,10 +14,10 @@ const Input: React.FC<InputProps> = ({
     inputSize = 'input-md',
     className = '',
     ...props
-}) => {
+}, ref) => {
     const baseClasses = 'input input-bordered w-full';
     const variantClasses = variant ? `input-${variant}` : '';
-    const sizeClasses = inputSize;
+    const sizeClasses = inputSize ? inputSize : '';
 
     return (
         <>
@@ -27,6 +27,7 @@ const Input: React.FC<InputProps> = ({
                 </label>
             )}
             <input
+                ref={ref}
                 type={type}
                 placeholder={placeholder}
                 className={`${baseClasses} ${variantClasses} ${sizeClasses} ${className}`}
@@ -34,6 +35,6 @@ const Input: React.FC<InputProps> = ({
             />
         </>
     );
-};
+});
 
 export default Input;
