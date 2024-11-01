@@ -2,6 +2,7 @@ import React from 'react';
 import { useAppSelector } from '../../hooks/redux';
 import Footer from '../footer';
 import Header from '../header';
+import { Link } from 'react-router-dom';
 
 const Dashboard: React.FC = () => {
     const { user } = useAppSelector((state) => state.auth);
@@ -14,12 +15,14 @@ const Dashboard: React.FC = () => {
                     Welcome, {user?.username}!
                 </h1>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    <div className="card bg-white shadow-lg dark:bg-slate-800">
-                        <div className="card-body">
-                            <h2 className="card-title">Users</h2>
-                            <p>Manage your users and their roles.</p>
+                    <Link to={'/employees'}>
+                        <div className="card bg-white shadow-lg dark:bg-slate-800">
+                            <div className="card-body">
+                                <h2 className="card-title">Employees</h2>
+                                <p>Manage your employees.</p>
+                            </div>
                         </div>
-                    </div>
+                    </Link>
                     <div className="card bg-white shadow-lg dark:bg-slate-800">
                         <div className="card-body">
                             <h2 className="card-title">Evaluations</h2>

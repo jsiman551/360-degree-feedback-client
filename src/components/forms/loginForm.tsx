@@ -46,6 +46,7 @@ const LoginForm: React.FC = () => {
                         type="password"
                         placeholder="********"
                         label="Password:"
+                        autoComplete=''
                         className="bg-transparent dark:bg-transparent dark:text-slate-100"
                         {...register('password', { required: 'Password is required' })}
                     />

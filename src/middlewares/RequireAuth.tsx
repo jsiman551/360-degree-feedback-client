@@ -2,17 +2,21 @@ import React, { useEffect } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../hooks/redux';
 
-const RequireAuth: React.FC = () => {
-    const { token } = useAppSelector((state) => state.auth);
+interface RequireAuthProps {
+    allowedRoles?: string[];
+}
+
+const RequireAuth: React.FC<RequireAuthProps> = ({ allowedRoles = ['Admin', 'Manager', 'Employee'] }) => {
+    const { token, user } = useAppSelector((state) => state.auth);
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (!token) {
+        if (!token || !user || !allowedRoles.includes(user.role)) {
             navigate('/', { replace: true });
         }
-    }, [token, navigate]);
+    }, [token, user, allowedRoles, navigate]);
 
-    return token ? <Outlet /> : null;
+    return token && user && allowedRoles.includes(user.role) ? <Outlet /> : null;
 };
 
 export default RequireAuth;

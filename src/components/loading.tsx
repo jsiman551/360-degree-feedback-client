@@ -6,7 +6,9 @@ interface LoadingProps {
 
 const Loading: React.FC<LoadingProps> = ({ size = 'md' }) => {
     return (
-        <span className={`loading loading-spinner loading-${size}`}></span>
+        <div className="flex flex-col items-center justify-center h-full">
+            <div className={`loading loading-spinner loading-${size}`} />
+        </div>
     );
 };
 

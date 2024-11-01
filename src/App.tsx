@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import LoginForm from "./components/forms/loginForm";
 import RequireAuth from './middlewares/RequireAuth';
 import Dashboard from './components/dashboard';
+import EmployeeList from './components/employees/employeeList';
 
 const App: React.FC = () => {
   return (
@@ -12,6 +13,9 @@ const App: React.FC = () => {
           <Route path="/" element={<LoginForm />} />
           <Route element={<RequireAuth />}>
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route element={<RequireAuth allowedRoles={['Admin', 'Manager']} />}>
+              <Route path="/employees" element={<EmployeeList />} />
+            </Route>
           </Route>
         </Routes>
       </div>
