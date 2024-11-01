@@ -1,6 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { useNavigate } from 'react-router-dom';
 import Input from '../input';
 import Button from '../button';
 import { login } from '../../redux/thunks/authThunks';
@@ -12,11 +13,17 @@ interface FormValues {
 
 const LoginForm: React.FC = () => {
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
     const { error, status } = useAppSelector((state) => state.auth);
     const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
 
-    const onSubmit = (data: FormValues) => {
-        dispatch(login(data));
+    const onSubmit = async (data: FormValues) => {
+        const resultAction = await dispatch(login(data));
+
+        if (login.fulfilled.match(resultAction)) {
+            // If success, go to dashboard
+            navigate('/dashboard');
+        }
     };
 
     return (
@@ -44,11 +51,11 @@ const LoginForm: React.FC = () => {
                     />
                     {errors.password && <span className="text-red-500 pt-2">{errors.password.message}</span>}
 
-                    {error &&
+                    {error && (
                         <div className="text-red-500 mt-5 text-center">
                             <p>{error}</p>
                         </div>
-                    }
+                    )}
 
                     <Button type="submit" className="btn btn-primary w-full" disabled={status === 'loading'}>
                         {status === 'loading' ? 'Logging in...' : 'Login'}

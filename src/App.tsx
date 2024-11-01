@@ -1,12 +1,22 @@
-import LoginForm from "./components/forms/loginForm"
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import LoginForm from "./components/forms/loginForm";
+import RequireAuth from './middlewares/RequireAuth';
+import Dashboard from './components/dashboard';
 
-function App() {
-
+const App: React.FC = () => {
   return (
-    <div className="h-screen bg-slate-50 dark:bg-slate-800">
-      <LoginForm />
-    </div>
-  )
+    <Router>
+      <div className="h-screen bg-slate-50 dark:bg-slate-800">
+        <Routes>
+          <Route path="/" element={<LoginForm />} />
+          <Route element={<RequireAuth />}>
+            <Route path="/dashboard" element={<Dashboard />} />
+          </Route>
+        </Routes>
+      </div>
+    </Router>
+  );
 }
 
-export default App
+export default App;

@@ -9,14 +9,14 @@ interface User {
 }
 
 interface AuthState {
-    user: User | [];
+    user: User | null;
     token: string | null;
     status: 'idle' | 'loading' | 'succeeded' | 'failed';
     error: string | null;
 }
 
 const initialState: AuthState = {
-    user: [],
+    user: null,
     token: "",
     status: 'idle',
     error: null,
@@ -27,7 +27,7 @@ const authSlice = createSlice({
     initialState,
     reducers: {
         logout(state) {
-            state.user = [];
+            state.user = null;
             state.token = "";
             state.status = "idle";
             state.error = null;
