@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useAppSelector, useAppDispatch } from '../../hooks/redux';
 import { fetchEmployees } from '../../redux/thunks/employeeThunks';
 import Footer from '../footer';
@@ -6,12 +6,14 @@ import Header from '../header';
 import Loading from '../loading';
 import { useNavigate } from 'react-router-dom';
 import Button from '../button';
+import RegisterForm from '../forms/registerForm';
 
 const EmployeeList: React.FC = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const { user, token } = useAppSelector((state) => state.auth);
     const { employees, loading, error } = useAppSelector((state) => state.employees);
+    const modalRef = useRef<HTMLDialogElement>(null);
 
     useEffect(() => {
         if (user?.role === 'Admin' || user?.role === 'Manager') {
@@ -20,6 +22,12 @@ const EmployeeList: React.FC = () => {
             }
         }
     }, [user, token, dispatch]);
+
+    const handleRegisterSuccess = () => {
+        if (token) {
+            dispatch(fetchEmployees(token));
+        }
+    };
 
     return (
         <div className="flex flex-col h-screen">
@@ -46,10 +54,7 @@ const EmployeeList: React.FC = () => {
                                 </thead>
                                 <tbody>
                                     {employees.map((employee) => (
-                                        <tr
-                                            key={employee._id}
-                                            className={user?.id === employee._id ? 'bg-base-200' : ''}
-                                        >
+                                        <tr key={employee._id} className={user?.id === employee._id ? 'bg-base-200' : ''}>
                                             <td>{employee._id}</td>
                                             <td>{employee.username}</td>
                                             <td>{employee.email}</td>
@@ -60,10 +65,10 @@ const EmployeeList: React.FC = () => {
                             </table>
                         </div>
                         <div className="flex mt-8 mx-auto max-w-5xl">
-                            {user?.role === 'Admin' && ( //only admins
+                            {user?.role === 'Admin' && (
                                 <Button
                                     color='primary'
-                                    onClick={() => navigate('/register')}
+                                    onClick={() => modalRef.current?.showModal()}
                                     className='mr-4'
                                 >
                                     Register New User
@@ -77,6 +82,17 @@ const EmployeeList: React.FC = () => {
                                 Back
                             </Button>
                         </div>
+
+                        {/* Modal for user registration */}
+                        <dialog ref={modalRef} className="modal">
+                            <div className="modal-box">
+                                <h3 className="font-bold text-lg">Register New User</h3>
+                                <RegisterForm onRegisterSuccess={handleRegisterSuccess} onClose={() => modalRef.current?.close()} />
+                                <div className="modal-action">
+                                    <Button type="button" variant='outline' color='neutral' onClick={() => modalRef.current?.close()}>Cancel</Button>
+                                </div>
+                            </div>
+                        </dialog>
                     </>
                 )}
             </main>
