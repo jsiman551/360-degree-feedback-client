@@ -1,7 +1,9 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import Input from '../input';
 import Button from '../button';
+import { login } from '../../redux/thunks/authThunks';
 
 interface FormValues {
     username: string;
@@ -9,10 +11,12 @@ interface FormValues {
 }
 
 const LoginForm: React.FC = () => {
+    const dispatch = useAppDispatch();
+    const { error, status } = useAppSelector((state) => state.auth);
     const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
 
     const onSubmit = (data: FormValues) => {
-        console.log(data);
+        dispatch(login(data));
     };
 
     return (
@@ -40,8 +44,14 @@ const LoginForm: React.FC = () => {
                     />
                     {errors.password && <span className="text-red-500 pt-2">{errors.password.message}</span>}
 
-                    <Button type="submit" className="btn btn-primary w-full">
-                        Login
+                    {error &&
+                        <div className="text-red-500 mt-5 text-center">
+                            <p>{error}</p>
+                        </div>
+                    }
+
+                    <Button type="submit" className="btn btn-primary w-full" disabled={status === 'loading'}>
+                        {status === 'loading' ? 'Logging in...' : 'Login'}
                     </Button>
                 </form>
             </div>
