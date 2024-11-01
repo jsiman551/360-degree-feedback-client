@@ -4,9 +4,12 @@ import { fetchEmployees } from '../../redux/thunks/employeeThunks';
 import Footer from '../footer';
 import Header from '../header';
 import Loading from '../loading';
+import { useNavigate } from 'react-router-dom';
+import Button from '../button';
 
 const EmployeeList: React.FC = () => {
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
     const { user, token } = useAppSelector((state) => state.auth);
     const { employees, loading, error } = useAppSelector((state) => state.employees);
 
@@ -31,8 +34,8 @@ const EmployeeList: React.FC = () => {
                         <h1 className="text-2xl font-bold text-slate-800 dark:text-slate-100 mt-6 mb-10 text-center">
                             Employee List
                         </h1>
-                        <div className="overflow-x-auto">
-                            <table className="table mx-auto max-w-5xl">
+                        <div className="overflow-x-auto mx-auto max-w-5xl">
+                            <table className="table">
                                 <thead>
                                     <tr>
                                         <th>ID</th>
@@ -55,6 +58,24 @@ const EmployeeList: React.FC = () => {
                                     ))}
                                 </tbody>
                             </table>
+                        </div>
+                        <div className="flex mt-8 mx-auto max-w-5xl">
+                            {user?.role === 'Admin' && ( //only admins
+                                <Button
+                                    color='primary'
+                                    onClick={() => navigate('/register')}
+                                    className='mr-4'
+                                >
+                                    Register New User
+                                </Button>
+                            )}
+                            <Button
+                                color="neutral"
+                                variant='outline'
+                                onClick={() => navigate(-1)}
+                            >
+                                Back
+                            </Button>
                         </div>
                     </>
                 )}
