@@ -32,19 +32,24 @@ const EmployeeList: React.FC = () => {
                             Employee List
                         </h1>
                         <div className="overflow-x-auto">
-                            <table className="table w-full">
+                            <table className="table mx-auto max-w-5xl">
                                 <thead>
                                     <tr>
                                         <th>ID</th>
                                         <th>Username</th>
+                                        <th>Email</th>
                                         <th>Role</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {employees.map((employee, index) => (
-                                        <tr key={index}>
-                                            <td>{employee.id}</td>
+                                    {employees.map((employee) => (
+                                        <tr
+                                            key={employee._id}
+                                            className={user?.id === employee._id ? 'bg-base-200' : ''}
+                                        >
+                                            <td>{employee._id}</td>
                                             <td>{employee.username}</td>
+                                            <td>{employee.email}</td>
                                             <td>{employee.role}</td>
                                         </tr>
                                     ))}

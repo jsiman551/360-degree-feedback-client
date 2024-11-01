@@ -2,8 +2,9 @@ import { createSlice } from '@reduxjs/toolkit';
 import { fetchEmployees } from '../thunks/employeeThunks';
 
 interface Employee {
-    id: string;
+    _id: string;
     username: string;
+    email: string;
     role: string;
 }
 

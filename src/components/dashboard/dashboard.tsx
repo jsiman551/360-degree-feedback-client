@@ -16,7 +16,7 @@ const Dashboard: React.FC = () => {
                 </h1>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     <Link to={'/employees'}>
-                        <div className="card bg-white shadow-lg dark:bg-slate-800">
+                        <div className="card bg-white shadow-lg dark:bg-slate-800 transition-transform duration-200 transform hover:scale-105 hover:bg-blue-200 dark:hover:bg-blue-600">
                             <div className="card-body">
                                 <h2 className="card-title">Employees</h2>
                                 <p>Manage your employees.</p>
@@ -30,9 +30,9 @@ const Dashboard: React.FC = () => {
                         </div>
                     </div>
                 </div>
-            </main>
+            </main >
             <Footer />
-        </div>
+        </div >
     );
 };
 
