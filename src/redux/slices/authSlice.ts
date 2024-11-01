@@ -17,7 +17,7 @@ interface AuthState {
 
 const initialState: AuthState = {
     user: null,
-    token: "",
+    token: null,
     status: 'idle',
     error: null,
 };
@@ -28,8 +28,8 @@ const authSlice = createSlice({
     reducers: {
         logout(state) {
             state.user = null;
-            state.token = "";
-            state.status = "idle";
+            state.token = null;
+            state.status = 'idle';
             state.error = null;
         },
     },
