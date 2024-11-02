@@ -4,6 +4,7 @@ import LoginForm from "./components/forms/loginForm";
 import RequireAuth from './middlewares/RequireAuth';
 import Dashboard from './components/dashboard';
 import EmployeeList from './components/employees/employeeList';
+import EvaluationList from './components/evaluations/evaluationsList';
 
 const App: React.FC = () => {
   return (
@@ -16,6 +17,7 @@ const App: React.FC = () => {
             <Route element={<RequireAuth allowedRoles={['Admin', 'Manager']} />}>
               <Route path="/employees" element={<EmployeeList />} />
             </Route>
+            <Route path="/employees/:employeeId/evaluations" element={<EvaluationList />} />
           </Route>
         </Routes>
       </div>

@@ -3,6 +3,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { registerEvaluation } from '../api';
 import Button from '../button';
 import Input from '../input';
+import { useNavigate } from 'react-router-dom';
 
 interface EvaluationFormProps {
     employeeId: string;
@@ -16,6 +17,7 @@ interface EvaluationFormData {
 }
 
 const EvaluationForm: React.FC<EvaluationFormProps> = ({ employeeId, token, onClose }) => {
+    const navigate = useNavigate();
     const { register, handleSubmit, formState: { errors } } = useForm<EvaluationFormData>();
     const [formError, setFormError] = useState('');
     const [loading, setLoading] = useState(false);
@@ -27,6 +29,7 @@ const EvaluationForm: React.FC<EvaluationFormProps> = ({ employeeId, token, onCl
             data.score = Number(data.score) //need to convert data score tu number type
             await registerEvaluation({ employeeId, ...data }, token);
             onClose();
+            navigate(`/employees/${employeeId}/evaluations`);
         } catch (error: unknown) {
             if (error instanceof Error) {
                 setFormError(error.message);

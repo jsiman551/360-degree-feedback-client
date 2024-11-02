@@ -71,13 +71,23 @@ const EmployeeList: React.FC = () => {
                                             <td>{employee.email}</td>
                                             <td>{employee.role}</td>
                                             {(user?.role === 'Admin' || user?.role === 'Manager') && (
-                                                <td>
-                                                    {user.id !== employee._id ? <Button
-                                                        onClick={() => handleEvaluationClick(employee._id)}
-                                                    >
-                                                        Evaluate
-                                                    </Button> : null}
-                                                </td>
+                                                <div className='flex'>
+                                                    <td>
+                                                        {user.id !== employee._id ? <Button
+                                                            onClick={() => handleEvaluationClick(employee._id)}
+                                                        >
+                                                            Evaluate
+                                                        </Button> : null}
+                                                    </td>
+                                                    <td>
+                                                        <Button
+                                                            onClick={() => navigate(`/employees/${employee._id}/evaluations`)}
+                                                            variant='ghost'
+                                                        >
+                                                            View Evaluations
+                                                        </Button>
+                                                    </td>
+                                                </div>
                                             )}
                                         </tr>
                                     ))}
@@ -95,8 +105,8 @@ const EmployeeList: React.FC = () => {
                                 </Button>
                             )}
                             <Button
-                                color="neutral"
-                                variant='outline'
+                                variant='solid'
+                                color='accent'
                                 onClick={() => navigate(-1)}
                             >
                                 Back
@@ -134,7 +144,7 @@ const EmployeeList: React.FC = () => {
                 )}
             </main>
             <Footer />
-        </div>
+        </div >
     );
 };
 
