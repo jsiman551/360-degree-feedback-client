@@ -49,7 +49,7 @@ const EvaluationList: React.FC = () => {
                                 variant='solid'
                                 color='accent'
                                 onClick={() => navigate(-1)}
-                                className='mb-3'
+                                className='mb-8'
                             >
                                 Back
                             </Button>

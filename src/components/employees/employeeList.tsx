@@ -50,6 +50,24 @@ const EmployeeList: React.FC = () => {
                         <h1 className="text-2xl font-bold text-slate-800 dark:text-slate-100 mt-6 mb-10 text-center">
                             Employee List
                         </h1>
+                        <div className="flex mb-8 mx-auto max-w-5xl">
+                            {user?.role === 'Admin' && (
+                                <Button
+                                    color='primary'
+                                    onClick={() => modalRef.current?.showModal()}
+                                    className='mr-4'
+                                >
+                                    Register New User
+                                </Button>
+                            )}
+                            <Button
+                                variant='solid'
+                                color='accent'
+                                onClick={() => navigate(-1)}
+                            >
+                                Back
+                            </Button>
+                        </div>
                         <div className="overflow-x-auto mx-auto max-w-5xl">
                             <table className="table">
                                 <thead>
@@ -93,24 +111,6 @@ const EmployeeList: React.FC = () => {
                                     ))}
                                 </tbody>
                             </table>
-                        </div>
-                        <div className="flex mt-8 mx-auto max-w-5xl">
-                            {user?.role === 'Admin' && (
-                                <Button
-                                    color='primary'
-                                    onClick={() => modalRef.current?.showModal()}
-                                    className='mr-4'
-                                >
-                                    Register New User
-                                </Button>
-                            )}
-                            <Button
-                                variant='solid'
-                                color='accent'
-                                onClick={() => navigate(-1)}
-                            >
-                                Back
-                            </Button>
                         </div>
 
                         {/* Modal for user registration */}
