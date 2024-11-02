@@ -3,6 +3,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { useAppSelector } from '../../hooks/redux';
 import { registerUser } from '../api';
 import Button from '../button';
+import Input from '../input';
 
 interface FormData {
     username: string;
@@ -47,16 +48,15 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onRegisterSuccess, onClose 
             {formError && <p className="text-red-600">{formError}</p>}
             <div>
                 <label className="label text-slate-800 dark:text-slate-100">Username</label>
-                <input
+                <Input
                     type="text"
                     {...register('username', { required: 'Username is required' })}
-                    className="input input-bordered w-full"
                 />
                 {errors.username && <p className="text-red-500 text-sm">{errors.username.message}</p>}
             </div>
             <div>
                 <label className="label text-slate-800 dark:text-slate-100">Email</label>
-                <input
+                <Input
                     type="email"
                     {...register('email', {
                         required: 'Email is required',
@@ -65,16 +65,14 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onRegisterSuccess, onClose 
                             message: 'Invalid email format'
                         }
                     })}
-                    className="input input-bordered w-full"
                 />
                 {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
             </div>
             <div>
                 <label className="label text-slate-800 dark:text-slate-100">Password</label>
-                <input
+                <Input
                     type="password"
                     {...register('password', { required: 'Password is required', minLength: { value: 6, message: 'Password must be at least 6 characters' } })}
-                    className="input input-bordered w-full"
                 />
                 {errors.password && <p className="text-red-500 text-sm">{errors.password.message}</p>}
             </div>

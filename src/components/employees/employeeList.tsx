@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useAppSelector, useAppDispatch } from '../../hooks/redux';
 import { fetchEmployees } from '../../redux/thunks/employeeThunks';
 import Footer from '../footer';
@@ -7,13 +7,16 @@ import Loading from '../loading';
 import { useNavigate } from 'react-router-dom';
 import Button from '../button';
 import RegisterForm from '../forms/registerForm';
+import EvaluationForm from '../forms/EvaluationForm';
 
 const EmployeeList: React.FC = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const { user, token } = useAppSelector((state) => state.auth);
     const { employees, loading, error } = useAppSelector((state) => state.employees);
+    const [selectedEmployeeId, setSelectedEmployeeId] = useState<string | null>(null);
     const modalRef = useRef<HTMLDialogElement>(null);
+    const evaluationModalRef = useRef<HTMLDialogElement>(null);
 
     useEffect(() => {
         if (user?.role === 'Admin' || user?.role === 'Manager') {
@@ -27,6 +30,11 @@ const EmployeeList: React.FC = () => {
         if (token) {
             dispatch(fetchEmployees(token));
         }
+    };
+
+    const handleEvaluationClick = (employeeId: string) => {
+        setSelectedEmployeeId(employeeId);
+        evaluationModalRef.current?.showModal();
     };
 
     return (
@@ -50,6 +58,9 @@ const EmployeeList: React.FC = () => {
                                         <th>Username</th>
                                         <th>Email</th>
                                         <th>Role</th>
+                                        {(user?.role === 'Admin' || user?.role === 'Manager') && (
+                                            <th>Actions</th>
+                                        )}
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -59,6 +70,15 @@ const EmployeeList: React.FC = () => {
                                             <td>{employee.username}</td>
                                             <td>{employee.email}</td>
                                             <td>{employee.role}</td>
+                                            {(user?.role === 'Admin' || user?.role === 'Manager') && (
+                                                <td>
+                                                    {user.id !== employee._id ? <Button
+                                                        onClick={() => handleEvaluationClick(employee._id)}
+                                                    >
+                                                        Evaluate
+                                                    </Button> : null}
+                                                </td>
+                                            )}
                                         </tr>
                                     ))}
                                 </tbody>
@@ -90,6 +110,23 @@ const EmployeeList: React.FC = () => {
                                 <RegisterForm onRegisterSuccess={handleRegisterSuccess} onClose={() => modalRef.current?.close()} />
                                 <div className="modal-action">
                                     <Button type="button" variant='outline' color='neutral' onClick={() => modalRef.current?.close()}>Cancel</Button>
+                                </div>
+                            </div>
+                        </dialog>
+
+                        {/* Modal for employee evaluation */}
+                        <dialog ref={evaluationModalRef} className="modal">
+                            <div className="modal-box">
+                                <h3 className="font-bold text-lg">Evaluate Employee</h3>
+                                {selectedEmployeeId && token && (
+                                    <EvaluationForm
+                                        employeeId={selectedEmployeeId}
+                                        token={token}
+                                        onClose={() => evaluationModalRef.current?.close()}
+                                    />
+                                )}
+                                <div className="modal-action">
+                                    <Button type="button" variant='outline' color='neutral' onClick={() => evaluationModalRef.current?.close()}>Cancel</Button>
                                 </div>
                             </div>
                         </dialog>
