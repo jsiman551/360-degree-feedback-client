@@ -5,10 +5,10 @@ import { fetchEvaluationById } from '../../../redux/thunks/evaluationThunks';
 import Header from '../../header';
 import Footer from '../../footer';
 import Loading from '../../loading';
-import { FaStar } from 'react-icons/fa';
 import Button from '../../button';
 import UpdateEvaluationForm from '../../forms/updateEvaluationForm';
 import AddFeedbackForm from '../../forms/addFeedbackForm';
+import { renderStars } from '../../../utils/helpers';
 
 const EvaluationDetail: React.FC = () => {
     const navigate = useNavigate();
@@ -26,12 +26,6 @@ const EvaluationDetail: React.FC = () => {
             dispatch(fetchEvaluationById({ evaluationId, token }));
         }
     }, [evaluationId, token, dispatch]);
-
-    const renderStars = (score: number) => {
-        return Array.from({ length: score }, (_, index) => (
-            <FaStar key={index} className="text-yellow-500 inline-block" />
-        ));
-    };
 
     const handleEditClick = () => {
         if (user?.id === evaluation?.evaluator._id) {

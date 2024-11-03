@@ -5,6 +5,7 @@ import Footer from '../footer';
 import Header from '../header';
 import Loading from '../loading';
 import { Link } from 'react-router-dom';
+import { renderStars } from '../../utils/helpers';
 
 const Dashboard: React.FC = () => {
     const dispatch = useAppDispatch();
@@ -33,50 +34,44 @@ const Dashboard: React.FC = () => {
                 </h1>
 
                 {/* Report Section */}
-                <div className="max-w-5xl mx-auto bg-white shadow-lg p-6 rounded-lg dark:bg-slate-800 mb-8">
+                <div className="max-w-5xl mx-auto bg-white shadow-lg p-6 rounded-lg dark:bg-slate-800 mb-8 text-center">
                     {loading ? (
                         <Loading size="lg" />
                     ) : error ? (
-                        <p className="text-red-600 text-center">{error}</p>
+                        <p className="text-red-600">{error}</p>
                     ) : report ? (
                         report.evaluations.length > 0 ? (
                             <div>
                                 <h2 className="text-xl font-bold mb-2 text-slate-800 dark:text-slate-100">Your Performance Report</h2>
-                                <p className="text-lg font-semibold">
-                                    Average Score: {report.averageScore}
-                                </p>
+                                <div className="my-2">{renderStars(report.averageScore)}</div>
                                 <p className="mt-2 text-slate-600 dark:text-slate-300">
                                     {getPerformanceMessage(report.averageScore)}
                                 </p>
                             </div>
                         ) : (
-                            <p className="text-center text-slate-700 dark:text-slate-300">
+                            <p className="text-slate-700 dark:text-slate-300">
                                 You don't have any evaluations yet, so you currently have no score. Please wait until you've been evaluated.
                             </p>
                         )
                     ) : (
-                        <p className="text-center">No report available.</p>
+                        <p>No report available.</p>
                     )}
                 </div>
 
-                {/* Navigation Cards */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {/* Navigation section */}
+                <div className="flex justify-center space-x-4">
                     {(user?.role === "Admin" || user?.role === "Manager") && (
                         <Link to="/employees">
-                            <div className="card bg-white shadow-lg dark:bg-slate-800 transition-transform duration-200 transform hover:scale-105 hover:bg-blue-200 dark:hover:bg-blue-600">
-                                <div className="card-body">
-                                    <h2 className="card-title">Employees</h2>
-                                    <p>Manage your employees.</p>
-                                </div>
+                            <div className="card bg-white shadow-lg dark:bg-slate-800 transition-transform duration-200 transform hover:scale-105 hover:bg-blue-200 dark:hover:bg-blue-600 text-center p-6 rounded-lg">
+                                <h2 className="text-lg font-semibold">Employees</h2>
+                                <p>Manage your employees.</p>
                             </div>
                         </Link>
                     )}
                     <Link to={`/employees/${user?.id}/evaluations`}>
-                        <div className="card bg-white shadow-lg dark:bg-slate-800 transition-transform duration-200 transform hover:scale-105 hover:bg-blue-200 dark:hover:bg-blue-600">
-                            <div className="card-body">
-                                <h2 className="card-title">Evaluations</h2>
-                                <p>View and manage your evaluations.</p>
-                            </div>
+                        <div className="card bg-white shadow-lg dark:bg-slate-800 transition-transform duration-200 transform hover:scale-105 hover:bg-blue-200 dark:hover:bg-blue-600 text-center p-6 rounded-lg">
+                            <h2 className="text-lg font-semibold">Evaluations</h2>
+                            <p>View and manage your evaluations.</p>
                         </div>
                     </Link>
                 </div>

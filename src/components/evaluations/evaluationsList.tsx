@@ -5,8 +5,8 @@ import { fetchEmployeeEvaluations } from '../../redux/thunks/evaluationThunks';
 import Header from '../header';
 import Footer from '../footer';
 import Loading from '../loading';
-import { FaStar } from 'react-icons/fa';
 import Button from '../button';
+import { renderStars } from '../../utils/helpers';
 
 const EvaluationList: React.FC = () => {
     const navigate = useNavigate();
@@ -23,13 +23,6 @@ const EvaluationList: React.FC = () => {
 
     // Lets take employee from first evaluation
     const employee = evaluations[0]?.employee;
-
-    // Generate Stars according to score
-    const renderStars = (score: number) => {
-        return Array.from({ length: score }, (_, index) => (
-            <FaStar key={index} className="text-yellow-500 inline-block" />
-        ));
-    };
 
     return (
         <div className="flex flex-col h-screen">
