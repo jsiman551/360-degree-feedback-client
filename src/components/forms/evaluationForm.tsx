@@ -26,7 +26,7 @@ const EvaluationForm: React.FC<EvaluationFormProps> = ({ employeeId, token, onCl
         setLoading(true);
         setFormError('');
         try {
-            data.score = Number(data.score) //need to convert data score tu number type
+            data.score = Number(data.score); // Convert score to number type
             await registerEvaluation({ employeeId, ...data }, token);
             onClose();
             navigate(`/employees/${employeeId}/evaluations`);
@@ -43,7 +43,7 @@ const EvaluationForm: React.FC<EvaluationFormProps> = ({ employeeId, token, onCl
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-            {formError && <p className="text-red-600">{formError}</p>}
+            {formError && <p className="text-red-600 dark:text-red-400">{formError}</p>}
             <div>
                 <label className="label text-slate-800 dark:text-slate-100">Score</label>
                 <Input
@@ -55,7 +55,7 @@ const EvaluationForm: React.FC<EvaluationFormProps> = ({ employeeId, token, onCl
                     })}
                     disabled={loading}
                 />
-                {errors.score && <p className="text-red-500 text-sm">{errors.score.message}</p>}
+                {errors.score && <p className="text-red-500 dark:text-red-400 text-sm">{errors.score.message}</p>}
             </div>
             <div>
                 <label className="label text-slate-800 dark:text-slate-100">Comments</label>
@@ -64,7 +64,7 @@ const EvaluationForm: React.FC<EvaluationFormProps> = ({ employeeId, token, onCl
                     className="textarea textarea-bordered w-full"
                     disabled={loading}
                 />
-                {errors.comments && <p className="text-red-500 text-sm">{errors.comments.message}</p>}
+                {errors.comments && <p className="text-red-500 dark:text-red-400 text-sm">{errors.comments.message}</p>}
             </div>
             <Button type="submit" color='primary' className="w-full" disabled={loading}>
                 {loading ? 'Submitting...' : 'Submit Evaluation'}

@@ -42,7 +42,7 @@ const AddFeedbackForm: React.FC<AddFeedbackFormProps> = ({ evaluationId, token, 
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-            {formError && <p className="text-red-600">{formError}</p>}
+            {formError && <p className="text-red-600 dark:text-red-400">{formError}</p>}
             <div>
                 <label className="label text-slate-800 dark:text-slate-100">Score</label>
                 <Input
@@ -53,6 +53,7 @@ const AddFeedbackForm: React.FC<AddFeedbackFormProps> = ({ evaluationId, token, 
                         max: { value: 5, message: 'Score cannot exceed 5' }
                     })}
                     disabled={loading}
+                    className="input w-full"
                 />
                 {errors.score && <p className="text-red-500 text-sm">{errors.score.message}</p>}
             </div>
@@ -60,12 +61,13 @@ const AddFeedbackForm: React.FC<AddFeedbackFormProps> = ({ evaluationId, token, 
                 <label className="label text-slate-800 dark:text-slate-100">Feedback</label>
                 <textarea
                     {...register('feedbackText', { required: 'Feedback is required' })}
-                    className="textarea textarea-bordered w-full"
+                    className="textarea textarea-bordered w-full dark:bg-slate-700 dark:text-slate-200"
                     disabled={loading}
+                    rows={4}
                 />
                 {errors.feedbackText && <p className="text-red-500 text-sm">{errors.feedbackText.message}</p>}
             </div>
-            <Button type="submit" color="primary" className="w-full" disabled={loading}>
+            <Button type="submit" color="primary" className="w-full bg-blue-500 dark:bg-blue-600 hover:bg-blue-600 dark:hover:bg-blue-700" disabled={loading}>
                 {loading ? 'Submitting...' : 'Add Feedback'}
             </Button>
         </form>

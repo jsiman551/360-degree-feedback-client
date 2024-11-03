@@ -40,20 +40,20 @@ const LoginForm: React.FC = () => {
                         className="bg-transparent dark:bg-transparent dark:text-slate-100"
                         {...register('username', { required: 'Username is required' })}
                     />
-                    {errors.username && <span className="text-red-500 pt-2">{errors.username.message}</span>}
+                    {errors.username && <span className="text-red-500 dark:text-red-400 pt-2">{errors.username.message}</span>}
 
                     <Input
                         type="password"
                         placeholder="********"
                         label="Password:"
-                        autoComplete=''
+                        autoComplete='current-password'
                         className="bg-transparent dark:bg-transparent dark:text-slate-100"
                         {...register('password', { required: 'Password is required' })}
                     />
-                    {errors.password && <span className="text-red-500 pt-2">{errors.password.message}</span>}
+                    {errors.password && <span className="text-red-500 dark:text-red-400 pt-2">{errors.password.message}</span>}
 
                     {error && (
-                        <div className="text-red-500 mt-5 text-center">
+                        <div className="text-red-500 dark:text-red-400 mt-5 text-center">
                             <p>{error}</p>
                         </div>
                     )}

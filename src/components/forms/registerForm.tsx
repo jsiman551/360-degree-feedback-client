@@ -45,14 +45,15 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onRegisterSuccess, onClose 
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-            {formError && <p className="text-red-600">{formError}</p>}
+            {formError && <p className="text-red-600 dark:text-red-400">{formError}</p>}
             <div>
                 <label className="label text-slate-800 dark:text-slate-100">Username</label>
                 <Input
                     type="text"
                     {...register('username', { required: 'Username is required' })}
+                    className="input w-full"
                 />
-                {errors.username && <p className="text-red-500 text-sm">{errors.username.message}</p>}
+                {errors.username && <p className="text-red-500 dark:text-red-400 text-sm">{errors.username.message}</p>}
             </div>
             <div>
                 <label className="label text-slate-800 dark:text-slate-100">Email</label>
@@ -65,16 +66,18 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onRegisterSuccess, onClose 
                             message: 'Invalid email format'
                         }
                     })}
+                    className="input w-full"
                 />
-                {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
+                {errors.email && <p className="text-red-500 dark:text-red-400 text-sm">{errors.email.message}</p>}
             </div>
             <div>
                 <label className="label text-slate-800 dark:text-slate-100">Password</label>
                 <Input
                     type="password"
                     {...register('password', { required: 'Password is required', minLength: { value: 6, message: 'Password must be at least 6 characters' } })}
+                    className="input w-full"
                 />
-                {errors.password && <p className="text-red-500 text-sm">{errors.password.message}</p>}
+                {errors.password && <p className="text-red-500 dark:text-red-400 text-sm">{errors.password.message}</p>}
             </div>
             <div>
                 <label className="label text-slate-800 dark:text-slate-100">Role</label>
@@ -86,7 +89,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onRegisterSuccess, onClose 
                     <option value="Manager">Manager</option>
                     <option value="Admin">Admin</option>
                 </select>
-                {errors.role && <p className="text-red-500 text-sm">{errors.role.message}</p>}
+                {errors.role && <p className="text-red-500 dark:text-red-400 text-sm">{errors.role.message}</p>}
             </div>
             <Button type="submit" color="primary" className="w-full" disabled={loading}>
                 {loading ? 'Registering...' : 'Register User'}
