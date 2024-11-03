@@ -19,10 +19,8 @@ const EmployeeList: React.FC = () => {
     const evaluationModalRef = useRef<HTMLDialogElement>(null);
 
     useEffect(() => {
-        if (user?.role === 'Admin' || user?.role === 'Manager') {
-            if (token) {
-                dispatch(fetchEmployees(token));
-            }
+        if ((user?.role === 'Admin' || user?.role === 'Manager') && token) {
+            dispatch(fetchEmployees(token));
         }
     }, [user, token, dispatch]);
 
@@ -38,24 +36,24 @@ const EmployeeList: React.FC = () => {
     };
 
     return (
-        <div className="flex flex-col h-screen">
+        <div className="flex flex-col h-screen bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100">
             <Header />
-            <main className="flex-grow p-4 bg-slate-100 dark:bg-slate-900">
+            <main className="flex-grow p-4">
                 {loading ? (
                     <Loading size='lg' />
                 ) : error ? (
-                    <h1 className="text-red-600 text-center">{error}</h1>
+                    <h1 className="text-red-600 dark:text-red-400 text-center">{error}</h1>
                 ) : (
                     <>
-                        <h1 className="text-2xl font-bold text-slate-800 dark:text-slate-100 mt-6 mb-10 text-center">
+                        <h1 className="text-2xl font-bold mt-6 mb-10 text-center">
                             Employee List
                         </h1>
-                        <div className="flex mb-8 mx-auto max-w-5xl">
+                        <div className="flex mb-8 mx-auto max-w-5xl justify-center space-x-4">
                             {user?.role === 'Admin' && (
                                 <Button
                                     color='primary'
                                     onClick={() => modalRef.current?.showModal()}
-                                    className='mr-4'
+                                    className="mr-4 bg-blue-500 dark:bg-blue-600 hover:bg-blue-600 dark:hover:bg-blue-700 text-white"
                                 >
                                     Register New User
                                 </Button>
@@ -64,48 +62,53 @@ const EmployeeList: React.FC = () => {
                                 variant='solid'
                                 color='accent'
                                 onClick={() => navigate(-1)}
+                                className="bg-emerald-500 dark:bg-emerald-600 hover:bg-emerald-600 dark:hover:bg-emerald-700 text-white"
                             >
                                 Back
                             </Button>
                         </div>
                         <div className="overflow-x-auto mx-auto max-w-5xl">
-                            <table className="table">
-                                <thead>
+                            <table className="w-full text-left bg-slate-100 dark:bg-slate-800 shadow-lg rounded-lg">
+                                <thead className="bg-slate-200 dark:bg-slate-700">
                                     <tr>
-                                        <th>ID</th>
-                                        <th>Username</th>
-                                        <th>Email</th>
-                                        <th>Role</th>
+                                        <th className="p-4">ID</th>
+                                        <th className="p-4">Username</th>
+                                        <th className="p-4">Email</th>
+                                        <th className="p-4">Role</th>
                                         {(user?.role === 'Admin' || user?.role === 'Manager') && (
-                                            <th>Actions</th>
+                                            <th className="p-4">Actions</th>
                                         )}
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {employees.map((employee) => (
-                                        <tr key={employee._id} className={user?.id === employee._id ? 'bg-base-200' : ''}>
-                                            <td>{employee._id}</td>
-                                            <td>{employee.username}</td>
-                                            <td>{employee.email}</td>
-                                            <td>{employee.role}</td>
+                                        <tr
+                                            key={employee._id}
+                                            className={`${user?.id === employee._id ? 'bg-slate-300 dark:bg-slate-600' : ''} hover:bg-slate-100 dark:hover:bg-slate-700`}
+                                        >
+                                            <td className="p-4">{employee._id}</td>
+                                            <td className="p-4">{employee.username}</td>
+                                            <td className="p-4">{employee.email}</td>
+                                            <td className="p-4">{employee.role}</td>
                                             {(user?.role === 'Admin' || user?.role === 'Manager') && (
-                                                <div className='flex'>
-                                                    <td>
-                                                        {user.id !== employee._id ? <Button
+                                                <td className="p-4 flex space-x-2">
+                                                    {user.id !== employee._id && (
+                                                        <Button
                                                             onClick={() => handleEvaluationClick(employee._id)}
+                                                            className="bg-blue-500 dark:bg-blue-600 hover:bg-blue-600 dark:hover:bg-blue-700 text-white"
                                                         >
                                                             Evaluate
-                                                        </Button> : null}
-                                                    </td>
-                                                    <td>
-                                                        <Button
-                                                            onClick={() => navigate(`/employees/${employee._id}/evaluations`)}
-                                                            variant='ghost'
-                                                        >
-                                                            View Evaluations
                                                         </Button>
-                                                    </td>
-                                                </div>
+                                                    )}
+                                                    <Button
+                                                        onClick={() => navigate(`/employees/${employee._id}/evaluations`)}
+                                                        variant="ghost"
+                                                        color="neutral"
+                                                        className="hover:underline text-blue-600 dark:text-blue-400"
+                                                    >
+                                                        View Evaluations
+                                                    </Button>
+                                                </td>
                                             )}
                                         </tr>
                                     ))}
@@ -115,8 +118,8 @@ const EmployeeList: React.FC = () => {
 
                         {/* Modal for user registration */}
                         <dialog ref={modalRef} className="modal">
-                            <div className="modal-box">
-                                <h3 className="font-bold text-lg">Register New User</h3>
+                            <div className="modal-box bg-slate-100 dark:bg-slate-800">
+                                <h3 className="font-bold text-lg text-slate-800 dark:text-slate-100">Register New User</h3>
                                 <RegisterForm onRegisterSuccess={handleRegisterSuccess} onClose={() => modalRef.current?.close()} />
                                 <div className="modal-action">
                                     <Button type="button" variant='outline' color='neutral' onClick={() => modalRef.current?.close()}>Cancel</Button>
@@ -126,8 +129,8 @@ const EmployeeList: React.FC = () => {
 
                         {/* Modal for employee evaluation */}
                         <dialog ref={evaluationModalRef} className="modal">
-                            <div className="modal-box">
-                                <h3 className="font-bold text-lg">Evaluate Employee</h3>
+                            <div className="modal-box bg-slate-100 dark:bg-slate-800">
+                                <h3 className="font-bold text-lg text-slate-800 dark:text-slate-100">Evaluate Employee</h3>
                                 {selectedEmployeeId && token && (
                                     <EvaluationForm
                                         employeeId={selectedEmployeeId}
@@ -144,7 +147,7 @@ const EmployeeList: React.FC = () => {
                 )}
             </main>
             <Footer />
-        </div >
+        </div>
     );
 };
 

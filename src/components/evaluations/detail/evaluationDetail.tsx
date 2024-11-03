@@ -39,13 +39,13 @@ const EvaluationDetail: React.FC = () => {
     };
 
     return (
-        <div className="flex flex-col h-screen">
+        <div className="flex flex-col h-screen bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100">
             <Header />
             <main className="flex-grow p-4">
                 {loading ? (
                     <Loading size="lg" />
                 ) : error ? (
-                    <p className="text-red-600 text-center">{error}</p>
+                    <p className="text-red-600 dark:text-red-400 text-center">{error}</p>
                 ) : (
                     <>
                         <div className="max-w-5xl mx-auto">
@@ -53,17 +53,19 @@ const EvaluationDetail: React.FC = () => {
                                 variant="solid"
                                 color="accent"
                                 onClick={() => navigate(-1)}
-                                className="mb-8"
+                                className="mb-8 bg-emerald-500 dark:bg-emerald-600 hover:bg-emerald-600 dark:hover:bg-emerald-700 text-white"
                             >
                                 Back
                             </Button>
                         </div>
-                        <div className="max-w-5xl mx-auto bg-white p-6 shadow-md rounded-lg">
+                        <div className="max-w-5xl mx-auto bg-slate-100 dark:bg-slate-800 p-6 shadow-md rounded-lg">
                             <h1 className="text-2xl font-bold text-center mb-4">Evaluation Details</h1>
                             {evaluation && (
                                 <>
                                     <p className="text-lg font-semibold">Evaluator: {evaluation.evaluator.username} ({evaluation.evaluator.role})</p>
-                                    <p className="flex items-center"><span className="mr-1">Score:</span> {renderStars(evaluation.score)}</p>
+                                    <p className="flex items-center">
+                                        <span className="mr-1">Score:</span> {renderStars(evaluation.score)}
+                                    </p>
                                     <p>Comments: {evaluation.comments}</p>
                                     <p>Date: {new Date(evaluation.date).toLocaleDateString()}</p>
 
@@ -73,7 +75,10 @@ const EvaluationDetail: React.FC = () => {
                                         {evaluation.feedbacks && evaluation.feedbacks.length > 0 ? (
                                             <ul className="space-y-4 mt-4">
                                                 {evaluation.feedbacks.map((feedback) => (
-                                                    <li key={feedback._id} className="border rounded-md p-4 bg-gray-100">
+                                                    <li
+                                                        key={feedback._id}
+                                                        className="border rounded-md p-4 bg-slate-200 dark:bg-slate-700"
+                                                    >
                                                         <p>Commentor: {feedback.commentor}</p>
                                                         <p className="flex items-center">
                                                             <span className="mr-1">Score:</span> {renderStars(feedback.score)}
@@ -84,7 +89,7 @@ const EvaluationDetail: React.FC = () => {
                                                 ))}
                                             </ul>
                                         ) : (
-                                            <p className="mt-4 text-gray-500">No feedbacks available.</p>
+                                            <p className="mt-4 text-gray-500 dark:text-gray-400">No feedbacks available.</p>
                                         )}
                                     </div>
 
@@ -92,21 +97,21 @@ const EvaluationDetail: React.FC = () => {
                                         variant="solid"
                                         color="primary"
                                         onClick={handleAddFeedbackClick}
-                                        className="mt-4"
+                                        className="mt-4 bg-blue-500 dark:bg-blue-600 hover:bg-blue-600 dark:hover:bg-blue-700 text-white"
                                     >
                                         Add Feedback
                                     </Button>
 
-                                    {user?.id === evaluation?.evaluator._id ? (
+                                    {user?.id === evaluation?.evaluator._id && (
                                         <Button
                                             variant="solid"
                                             color="primary"
                                             onClick={handleEditClick}
-                                            className="mt-4 ml-2"
+                                            className="mt-4 ml-2 bg-indigo-500 dark:bg-indigo-600 hover:bg-indigo-600 dark:hover:bg-indigo-700 text-white"
                                         >
                                             Edit Evaluation
                                         </Button>
-                                    ) : null}
+                                    )}
                                 </>
                             )}
                         </div>
@@ -130,7 +135,12 @@ const EvaluationDetail: React.FC = () => {
                         />
                     )}
                     <div className="modal-action">
-                        <Button type="button" variant="outline" color="neutral" onClick={() => editModalRef.current?.close()}>
+                        <Button
+                            type="button"
+                            variant="outline"
+                            color="neutral"
+                            onClick={() => editModalRef.current?.close()}
+                        >
                             Cancel
                         </Button>
                     </div>
@@ -150,7 +160,12 @@ const EvaluationDetail: React.FC = () => {
                         />
                     )}
                     <div className="modal-action">
-                        <Button type="button" variant="outline" color="neutral" onClick={() => feedbackModalRef.current?.close()}>
+                        <Button
+                            type="button"
+                            variant="outline"
+                            color="neutral"
+                            onClick={() => feedbackModalRef.current?.close()}
+                        >
                             Cancel
                         </Button>
                     </div>
