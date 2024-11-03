@@ -7,7 +7,7 @@ import Loading from '../loading';
 import { useNavigate } from 'react-router-dom';
 import Button from '../button';
 import RegisterForm from '../forms/registerForm';
-import EvaluationForm from '../forms/EvaluationForm';
+import EvaluationForm from '../forms/evaluationForm';
 
 const EmployeeList: React.FC = () => {
     const dispatch = useAppDispatch();

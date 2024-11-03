@@ -8,6 +8,7 @@ import Loading from '../../loading';
 import { FaStar } from 'react-icons/fa';
 import Button from '../../button';
 import UpdateEvaluationForm from '../../forms/updateEvaluationForm';
+import AddFeedbackForm from '../../forms/addFeedbackForm';
 
 const EvaluationDetail: React.FC = () => {
     const navigate = useNavigate();
@@ -18,6 +19,7 @@ const EvaluationDetail: React.FC = () => {
 
     const [selectedEvaluationId, setSelectedEvaluationId] = useState<string | null>(null);
     const editModalRef = useRef<HTMLDialogElement>(null);
+    const feedbackModalRef = useRef<HTMLDialogElement>(null);
 
     useEffect(() => {
         if (evaluationId && token) {
@@ -35,6 +37,12 @@ const EvaluationDetail: React.FC = () => {
         if (user?.id === evaluation?.evaluator._id) {
             setSelectedEvaluationId(evaluationId || null);
             editModalRef.current?.showModal();
+        }
+    };
+
+    const handleAddFeedbackClick = () => {
+        if (user?.role === 'Manager' || user?.role === 'Admin') {
+            feedbackModalRef.current?.showModal();
         }
     };
 
@@ -67,14 +75,45 @@ const EvaluationDetail: React.FC = () => {
                                     <p>Comments: {evaluation.comments}</p>
                                     <p>Date: {new Date(evaluation.date).toLocaleDateString()}</p>
 
-                                    {user?.id === evaluation?.evaluator._id ? <Button
+                                    {/* Feedback Section */}
+                                    <div className="mt-6">
+                                        <h2 className="text-xl font-semibold">Feedbacks</h2>
+                                        {evaluation.feedbacks && evaluation.feedbacks.length > 0 ? (
+                                            <ul className="space-y-4 mt-4">
+                                                {evaluation.feedbacks.map((feedback) => (
+                                                    <li key={feedback._id} className="border rounded-md p-4 bg-gray-100">
+                                                        <p className="flex items-center">
+                                                            <span className="mr-1">Score:</span> {renderStars(feedback.score)}
+                                                        </p>
+                                                        <p>Feedback: {feedback.feedbackText}</p>
+                                                        <p>Date: {new Date(feedback.date).toLocaleDateString()}</p>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        ) : (
+                                            <p className="mt-4 text-gray-500">No feedbacks available.</p>
+                                        )}
+                                    </div>
+
+                                    <Button
                                         variant="solid"
                                         color="primary"
-                                        onClick={handleEditClick}
+                                        onClick={handleAddFeedbackClick}
                                         className="mt-4"
                                     >
-                                        Edit Evaluation
-                                    </Button> : null}
+                                        Add Feedback
+                                    </Button>
+
+                                    {user?.id === evaluation?.evaluator._id ? (
+                                        <Button
+                                            variant="solid"
+                                            color="primary"
+                                            onClick={handleEditClick}
+                                            className="mt-4 ml-2"
+                                        >
+                                            Edit Evaluation
+                                        </Button>
+                                    ) : null}
                                 </>
                             )}
                         </div>
@@ -99,6 +138,26 @@ const EvaluationDetail: React.FC = () => {
                     )}
                     <div className="modal-action">
                         <Button type="button" variant="outline" color="neutral" onClick={() => editModalRef.current?.close()}>
+                            Cancel
+                        </Button>
+                    </div>
+                </div>
+            </dialog>
+
+            {/* Modal for adding feedback */}
+            <dialog ref={feedbackModalRef} className="modal">
+                <div className="modal-box">
+                    <h3 className="font-bold text-lg">Add Feedback</h3>
+                    {evaluationId && token && (
+                        <AddFeedbackForm
+                            evaluationId={evaluationId}
+                            token={token}
+                            onClose={() => feedbackModalRef.current?.close()}
+                            onFeedbackAdded={() => dispatch(fetchEvaluationById({ evaluationId, token }))}
+                        />
+                    )}
+                    <div className="modal-action">
+                        <Button type="button" variant="outline" color="neutral" onClick={() => feedbackModalRef.current?.close()}>
                             Cancel
                         </Button>
                     </div>
