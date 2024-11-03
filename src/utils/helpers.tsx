@@ -15,3 +15,10 @@ export const renderStars = (score: number) => {
 
     return <div className="flex justify-center text-2xl" > {stars} </div>;
 };
+
+export const getPerformanceMessage = (averageScore: number) => {
+    if (averageScore >= 4.5) return "Excellent performance!";
+    if (averageScore >= 3.5) return "Good performance!";
+    if (averageScore >= 2.5) return "Needs improvement.";
+    return "Poor performance. Consider focusing on key areas.";
+};

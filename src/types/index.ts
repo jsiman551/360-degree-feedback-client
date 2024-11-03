@@ -1,5 +1,12 @@
 import { ButtonHTMLAttributes } from "react";
 
+export type EmployeeType = {
+    _id: string;
+    username: string;
+    email: string;
+    role: string;
+}
+
 export type RegisterData = {
     username: string;
     email: string;

@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import Button from '../button';
 import RegisterForm from '../forms/registerForm';
 import EvaluationForm from '../forms/evaluationForm';
+import EmployeeCard from './cards/employeeCard';
 
 const EmployeeList: React.FC = () => {
     const dispatch = useAppDispatch();
@@ -36,7 +37,7 @@ const EmployeeList: React.FC = () => {
     };
 
     return (
-        <div className="flex flex-col h-screen bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100">
+        <div className="flex flex-col min-h-screen bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100">
             <Header />
             <main className="flex-grow p-4">
                 {loading ? (
@@ -67,53 +68,16 @@ const EmployeeList: React.FC = () => {
                                 Back
                             </Button>
                         </div>
-                        <div className="overflow-x-auto mx-auto max-w-5xl">
-                            <table className="w-full text-left bg-slate-100 dark:bg-slate-800 shadow-lg rounded-lg">
-                                <thead className="bg-slate-200 dark:bg-slate-700">
-                                    <tr>
-                                        <th className="p-4">ID</th>
-                                        <th className="p-4">Username</th>
-                                        <th className="p-4">Email</th>
-                                        <th className="p-4">Role</th>
-                                        {(user?.role === 'Admin' || user?.role === 'Manager') && (
-                                            <th className="p-4">Actions</th>
-                                        )}
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {employees.map((employee) => (
-                                        <tr
-                                            key={employee._id}
-                                            className={`${user?.id === employee._id ? 'bg-slate-300 dark:bg-slate-600' : ''} hover:bg-slate-100 dark:hover:bg-slate-700`}
-                                        >
-                                            <td className="p-4">{employee._id}</td>
-                                            <td className="p-4">{employee.username}</td>
-                                            <td className="p-4">{employee.email}</td>
-                                            <td className="p-4">{employee.role}</td>
-                                            {(user?.role === 'Admin' || user?.role === 'Manager') && (
-                                                <td className="p-4 flex space-x-2">
-                                                    {user.id !== employee._id && (
-                                                        <Button
-                                                            onClick={() => handleEvaluationClick(employee._id)}
-                                                            className="bg-blue-500 dark:bg-blue-600 hover:bg-blue-600 dark:hover:bg-blue-700 text-white"
-                                                        >
-                                                            Evaluate
-                                                        </Button>
-                                                    )}
-                                                    <Button
-                                                        onClick={() => navigate(`/employees/${employee._id}/evaluations`)}
-                                                        variant="ghost"
-                                                        color="neutral"
-                                                        className="hover:underline text-blue-600 dark:text-blue-400"
-                                                    >
-                                                        View Evaluations
-                                                    </Button>
-                                                </td>
-                                            )}
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
+                        <div className="flex flex-wrap justify-center max-w-5xl mx-auto">
+                            {employees.map((employee) => (
+                                <EmployeeCard
+                                    key={employee._id}
+                                    employee={employee}
+                                    onEvaluate={handleEvaluationClick}
+                                    onView={(id) => navigate(`/employees/${id}/evaluations`)}
+                                    isCurrentUser={user?.id === employee._id}
+                                />
+                            ))}
                         </div>
 
                         {/* Modal for user registration */}

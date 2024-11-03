@@ -23,7 +23,7 @@ const LoginForm: React.FC = () => {
     };
 
     return (
-        <div className="flex items-center justify-center h-screen p-4">
+        <div className="flex items-center justify-center min-h-screen p-4">
             <div className="w-full max-w-sm p-8 space-y-6 bg-white shadow-lg rounded-lg dark:bg-slate-900 dark:border dark:border-slate-700">
                 <h2 className="text-2xl font-bold text-slate-800 dark:text-slate-100 text-center">
                     Welcome to 360 Degree Feedback App

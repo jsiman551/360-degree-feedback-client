@@ -5,7 +5,7 @@ import Footer from '../footer';
 import Header from '../header';
 import Loading from '../loading';
 import { Link } from 'react-router-dom';
-import { renderStars } from '../../utils/helpers';
+import { getPerformanceMessage, renderStars } from '../../utils/helpers';
 
 const Dashboard: React.FC = () => {
     const dispatch = useAppDispatch();
@@ -18,15 +18,8 @@ const Dashboard: React.FC = () => {
         }
     }, [user, token, dispatch]);
 
-    const getPerformanceMessage = (averageScore: number) => {
-        if (averageScore >= 4.5) return "Excellent performance!";
-        if (averageScore >= 3.5) return "Good performance!";
-        if (averageScore >= 2.5) return "Needs improvement.";
-        return "Poor performance. Consider focusing on key areas.";
-    };
-
     return (
-        <div className="flex flex-col h-screen bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100">
+        <div className="flex flex-col min-h-screen bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100">
             <Header />
             <main className="flex-grow p-4">
                 <h1 className="text-2xl font-bold mt-6 mb-10 text-center">
