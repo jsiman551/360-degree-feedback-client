@@ -41,9 +41,7 @@ const EvaluationDetail: React.FC = () => {
     };
 
     const handleAddFeedbackClick = () => {
-        if (user?.role === 'Manager' || user?.role === 'Admin') {
-            feedbackModalRef.current?.showModal();
-        }
+        feedbackModalRef.current?.showModal();
     };
 
     return (
@@ -82,6 +80,7 @@ const EvaluationDetail: React.FC = () => {
                                             <ul className="space-y-4 mt-4">
                                                 {evaluation.feedbacks.map((feedback) => (
                                                     <li key={feedback._id} className="border rounded-md p-4 bg-gray-100">
+                                                        <p>Commentor: {feedback.commentor}</p>
                                                         <p className="flex items-center">
                                                             <span className="mr-1">Score:</span> {renderStars(feedback.score)}
                                                         </p>

@@ -13,6 +13,7 @@ interface Evaluator {
 
 interface Feedback {
     _id: string;
+    commentor: string;
     feedbackText: string;
     score: number;
     date: string;
