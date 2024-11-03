@@ -6,6 +6,7 @@ interface Employee {
 }
 
 interface Evaluator {
+    _id: string;
     username: string;
     role: string;
 }

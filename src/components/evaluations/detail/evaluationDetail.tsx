@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
 import { fetchEvaluationById } from '../../../redux/thunks/evaluationThunks';
@@ -7,13 +7,17 @@ import Footer from '../../footer';
 import Loading from '../../loading';
 import { FaStar } from 'react-icons/fa';
 import Button from '../../button';
+import UpdateEvaluationForm from '../../forms/updateEvaluationForm';
 
 const EvaluationDetail: React.FC = () => {
     const navigate = useNavigate();
     const { evaluationId } = useParams<{ evaluationId: string }>();
     const dispatch = useAppDispatch();
     const { evaluation, loading, error } = useAppSelector((state) => state.evaluations);
-    const { token } = useAppSelector((state) => state.auth);
+    const { token, user } = useAppSelector((state) => state.auth);
+
+    const [selectedEvaluationId, setSelectedEvaluationId] = useState<string | null>(null);
+    const editModalRef = useRef<HTMLDialogElement>(null);
 
     useEffect(() => {
         if (evaluationId && token) {
@@ -27,6 +31,13 @@ const EvaluationDetail: React.FC = () => {
         ));
     };
 
+    const handleEditClick = () => {
+        if (user?.id === evaluation?.evaluator._id) {
+            setSelectedEvaluationId(evaluationId || null);
+            editModalRef.current?.showModal();
+        }
+    };
+
     return (
         <div className="flex flex-col h-screen">
             <Header />
@@ -37,12 +48,12 @@ const EvaluationDetail: React.FC = () => {
                     <p className="text-red-600 text-center">{error}</p>
                 ) : (
                     <>
-                        <div className='max-w-5xl mx-auto'>
+                        <div className="max-w-5xl mx-auto">
                             <Button
-                                variant='solid'
-                                color='accent'
+                                variant="solid"
+                                color="accent"
                                 onClick={() => navigate(-1)}
-                                className='mb-8'
+                                className="mb-8"
                             >
                                 Back
                             </Button>
@@ -52,25 +63,18 @@ const EvaluationDetail: React.FC = () => {
                             {evaluation && (
                                 <>
                                     <p className="text-lg font-semibold">Evaluator: {evaluation.evaluator.username} ({evaluation.evaluator.role})</p>
-                                    <p className='flex items-center'><span className='mr-1'>Score:</span> {renderStars(evaluation.score)}</p>
+                                    <p className="flex items-center"><span className="mr-1">Score:</span> {renderStars(evaluation.score)}</p>
                                     <p>Comments: {evaluation.comments}</p>
                                     <p>Date: {new Date(evaluation.date).toLocaleDateString()}</p>
 
-                                    <h2 className="text-xl font-semibold mt-6">Feedbacks</h2>
-                                    {evaluation.feedbacks.length > 0 ? (
-                                        <ul className="space-y-4 mt-4">
-                                            {evaluation.feedbacks.map((feedback) => (
-                                                <li key={feedback._id} className="p-4 bg-gray-100 rounded-lg shadow">
-                                                    <p className="font-semibold">Feedback by User ID: {feedback.user}</p>
-                                                    <p>Score: {renderStars(feedback.score)}</p>
-                                                    <p>Feedback Text: {feedback.feedbackText}</p>
-                                                    <p>Date: {new Date(feedback.date).toLocaleDateString()}</p>
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    ) : (
-                                        <p className="text-gray-500 mt-4">No feedback available for this evaluation.</p>
-                                    )}
+                                    {user?.id === evaluation?.evaluator._id ? <Button
+                                        variant="solid"
+                                        color="primary"
+                                        onClick={handleEditClick}
+                                        className="mt-4"
+                                    >
+                                        Edit Evaluation
+                                    </Button> : null}
                                 </>
                             )}
                         </div>
@@ -78,6 +82,28 @@ const EvaluationDetail: React.FC = () => {
                 )}
             </main>
             <Footer />
+
+            {/* Modal for editing evaluation */}
+            <dialog ref={editModalRef} className="modal">
+                <div className="modal-box">
+                    <h3 className="font-bold text-lg">Edit Evaluation</h3>
+                    {selectedEvaluationId && evaluation && token && (
+                        <UpdateEvaluationForm
+                            evaluationId={selectedEvaluationId}
+                            initialScore={evaluation.score}
+                            initialComments={evaluation.comments}
+                            token={token}
+                            onClose={() => editModalRef.current?.close()}
+                            onUpdateSuccess={() => dispatch(fetchEvaluationById({ evaluationId: selectedEvaluationId, token }))}
+                        />
+                    )}
+                    <div className="modal-action">
+                        <Button type="button" variant="outline" color="neutral" onClick={() => editModalRef.current?.close()}>
+                            Cancel
+                        </Button>
+                    </div>
+                </div>
+            </dialog>
         </div>
     );
 };
