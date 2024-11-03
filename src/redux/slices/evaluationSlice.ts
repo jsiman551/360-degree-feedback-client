@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { fetchEmployeeEvaluations } from '../thunks/evaluationThunks';
+import { fetchEvaluationById, fetchEmployeeEvaluations } from '../thunks/evaluationThunks';
 
 interface Employee {
     username: string;
@@ -11,6 +11,7 @@ interface Evaluator {
 }
 
 interface Feedback {
+    _id: string;
     feedbackText: string;
     score: number;
     date: string;
@@ -30,12 +31,14 @@ export interface Evaluation {
 
 interface EvaluationState {
     evaluations: Evaluation[];
+    evaluation: Evaluation | null; //evaluation detail
     loading: boolean;
     error: string | null;
 }
 
 const initialState: EvaluationState = {
     evaluations: [],
+    evaluation: null,
     loading: false,
     error: null,
 };
@@ -46,6 +49,7 @@ const evaluationSlice = createSlice({
     reducers: {
         clearEvaluations(state) {
             state.evaluations = [];
+            state.evaluation = null;
             state.error = null;
             state.loading = false;
         },
@@ -63,6 +67,18 @@ const evaluationSlice = createSlice({
             .addCase(fetchEmployeeEvaluations.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.error.message || 'Failed to load evaluations';
+            })
+            .addCase(fetchEvaluationById.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(fetchEvaluationById.fulfilled, (state, action: PayloadAction<Evaluation>) => {
+                state.loading = false;
+                state.evaluation = action.payload;
+            })
+            .addCase(fetchEvaluationById.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.error.message || 'Failed to load evaluation';
             });
     },
 });

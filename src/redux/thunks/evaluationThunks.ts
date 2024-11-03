@@ -23,3 +23,25 @@ export const fetchEmployeeEvaluations = createAsyncThunk<
         }
     }
 });
+
+export const fetchEvaluationById = createAsyncThunk(
+    'evaluations/fetchEvaluationById',
+    async ({ evaluationId, token }: { evaluationId: string; token: string }, { rejectWithValue }) => {
+        try {
+            const response = await axios.get(`${BASE_API_URL}/evaluations/${evaluationId}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            return response.data.data;
+        } catch (error) {
+            if (error instanceof AxiosError) {
+                const message = error.response?.data?.errors?.[0]?.message || error.response?.data?.message;
+                if (message) {
+                    return rejectWithValue(message || 'Error at evaluation loading');
+                }
+                return rejectWithValue(error.message);
+            }
+        }
+    }
+);

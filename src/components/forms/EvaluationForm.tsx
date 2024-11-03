@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { registerEvaluation } from '../api';
+import { registerEvaluation } from '../../api';
 import Button from '../button';
 import Input from '../input';
 import { useNavigate } from 'react-router-dom';

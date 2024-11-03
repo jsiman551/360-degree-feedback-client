@@ -1,5 +1,5 @@
 import axios, { AxiosError } from 'axios';
-import { BASE_API_URL } from '../../consts';
+import { BASE_API_URL } from '../consts';
 
 interface RegisterData {
     username: string;

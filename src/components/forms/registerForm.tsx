@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useAppSelector } from '../../hooks/redux';
-import { registerUser } from '../api';
+import { registerUser } from '../../api';
 import Button from '../button';
 import Input from '../input';
 

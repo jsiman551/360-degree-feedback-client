@@ -5,6 +5,7 @@ import RequireAuth from './middlewares/RequireAuth';
 import Dashboard from './components/dashboard';
 import EmployeeList from './components/employees/employeeList';
 import EvaluationList from './components/evaluations/evaluationsList';
+import EvaluationDetails from './components/evaluations/detail';
 
 const App: React.FC = () => {
   return (
@@ -18,6 +19,7 @@ const App: React.FC = () => {
               <Route path="/employees" element={<EmployeeList />} />
             </Route>
             <Route path="/employees/:employeeId/evaluations" element={<EvaluationList />} />
+            <Route path="/evaluations/:evaluationId" element={<EvaluationDetails />} />
           </Route>
         </Routes>
       </div>

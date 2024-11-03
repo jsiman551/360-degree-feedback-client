@@ -62,6 +62,12 @@ const EvaluationList: React.FC = () => {
                                         <p className='flex items-center'><span className='mr-1'>Score:</span> {renderStars(evaluation.score)}</p>
                                         <p>Comments: {evaluation.comments}</p>
                                         <p>Date: {new Date(evaluation.date).toLocaleDateString()}</p>
+                                        <Button
+                                            onClick={() => navigate(`/evaluations/${evaluation._id}`)}
+                                            className="mt-4"
+                                        >
+                                            View Details
+                                        </Button>
                                     </li>
                                 ))}
                             </ul> : <p className="text-red-600 text-center">No evaluations yet</p>
