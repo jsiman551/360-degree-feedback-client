@@ -1,26 +1,6 @@
 import axios, { AxiosError } from 'axios';
 import { BASE_API_URL } from '../consts';
-import { UpdateEvaluationFormData } from '../components/forms/updateEvaluationForm';
-
-interface RegisterData {
-    username: string;
-    email: string;
-    password: string;
-    role: 'Admin' | 'Manager' | 'Employee';
-}
-
-interface EvaluationData {
-    employeeId: string;
-    score: number;
-    comments: string;
-}
-
-
-interface FeedbackData {
-    evaluationId: string;
-    feedbackText: string;
-    score: number;
-}
+import { RegisterData, EvaluationData, FeedbackData, EvaluationFormData } from '../types';
 
 export const registerUser = async (data: RegisterData, token: string) => {
     try {
@@ -60,7 +40,7 @@ export const registerEvaluation = async (data: EvaluationData, token: string) =>
     }
 };
 
-export const updateEvaluation = async (evaluationId: string, data: UpdateEvaluationFormData, token: string) => {
+export const updateEvaluation = async (evaluationId: string, data: EvaluationFormData, token: string) => {
     try {
         const response = await axios.put(`${BASE_API_URL}/evaluations/${evaluationId}`, data, {
             headers: {

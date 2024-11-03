@@ -4,17 +4,7 @@ import { registerEvaluation } from '../../api';
 import Button from '../button';
 import Input from '../input';
 import { useNavigate } from 'react-router-dom';
-
-interface EvaluationFormProps {
-    employeeId: string;
-    token: string;
-    onClose: () => void;
-}
-
-interface EvaluationFormData {
-    score: number;
-    comments: string;
-}
+import { EvaluationFormProps, EvaluationFormData } from '../../types';
 
 const EvaluationForm: React.FC<EvaluationFormProps> = ({ employeeId, token, onClose }) => {
     const navigate = useNavigate();

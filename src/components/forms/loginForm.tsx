@@ -5,19 +5,15 @@ import { useNavigate } from 'react-router-dom';
 import Input from '../input';
 import Button from '../button';
 import { login } from '../../redux/thunks/authThunks';
-
-interface FormValues {
-    username: string;
-    password: string;
-}
+import { LoginFormValues } from '../../types';
 
 const LoginForm: React.FC = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const { error, status } = useAppSelector((state) => state.auth);
-    const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
+    const { register, handleSubmit, formState: { errors } } = useForm<LoginFormValues>();
 
-    const onSubmit = async (data: FormValues) => {
+    const onSubmit = async (data: LoginFormValues) => {
         const resultAction = await dispatch(login(data));
 
         if (login.fulfilled.match(resultAction)) {

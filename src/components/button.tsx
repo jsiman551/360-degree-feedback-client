@@ -1,11 +1,5 @@
-import React, { ButtonHTMLAttributes } from "react";
-
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-    variant?: "solid" | "outline" | "ghost" | "link";
-    color?: "primary" | "secondary" | "accent" | "neutral";
-    size?: "xs" | "sm" | "md" | "lg";
-    className?: string;
-}
+import React from "react";
+import { ButtonProps } from "../types";
 
 const Button: React.FC<ButtonProps> = ({
     variant = "solid",

@@ -3,18 +3,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { addFeedback } from '../../api';
 import Button from '../button';
 import Input from '../input';
-
-interface AddFeedbackFormProps {
-    evaluationId: string;
-    token: string;
-    onClose: () => void;
-    onFeedbackAdded: () => void;
-}
-
-interface AddFeedbackFormData {
-    score: number;
-    feedbackText: string;
-}
+import { AddFeedbackFormProps, AddFeedbackFormData } from '../../types';
 
 const AddFeedbackForm: React.FC<AddFeedbackFormProps> = ({ evaluationId, token, onClose, onFeedbackAdded }) => {
     const { register, handleSubmit, formState: { errors } } = useForm<AddFeedbackFormData>();

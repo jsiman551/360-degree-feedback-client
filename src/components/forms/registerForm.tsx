@@ -4,26 +4,15 @@ import { useAppSelector } from '../../hooks/redux';
 import { registerUser } from '../../api';
 import Button from '../button';
 import Input from '../input';
-
-interface FormData {
-    username: string;
-    email: string;
-    password: string;
-    role: 'Admin' | 'Manager' | 'Employee';
-}
-
-interface RegisterFormProps {
-    onRegisterSuccess: () => void;
-    onClose: () => void;
-}
+import { RegisterFormProps, RegisterFormData } from '../../types';
 
 const RegisterForm: React.FC<RegisterFormProps> = ({ onRegisterSuccess, onClose }) => {
     const { token } = useAppSelector((state) => state.auth);
-    const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
+    const { register, handleSubmit, formState: { errors } } = useForm<RegisterFormData>();
     const [formError, setFormError] = useState('');
     const [loading, setLoading] = useState(false);
 
-    const onSubmit: SubmitHandler<FormData> = async (formData) => {
+    const onSubmit: SubmitHandler<RegisterFormData> = async (formData) => {
         setFormError('');
         setLoading(true);
         try {

@@ -1,10 +1,5 @@
-import React, { forwardRef } from 'react';
-
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-    label?: string;
-    variant?: 'primary' | 'secondary' | 'accent' | 'info' | 'success' | 'warning' | 'error';
-    inputSize?: 'input-lg' | 'input-md' | 'input-sm' | 'input-xs';
-}
+import { forwardRef } from 'react';
+import { InputProps } from '../types';
 
 const Input = forwardRef<HTMLInputElement, InputProps>(({
     type = 'text',

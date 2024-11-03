@@ -71,7 +71,7 @@ const Dashboard: React.FC = () => {
                     <Link to={`/employees/${user?.id}/evaluations`}>
                         <div className="card bg-blue-50 dark:bg-blue-800 hover:bg-blue-200 dark:hover:bg-blue-600 shadow-lg text-center p-6 rounded-lg transition-transform transform hover:scale-105">
                             <h2 className="text-lg font-semibold text-blue-700 dark:text-blue-200">Evaluations</h2>
-                            <p className="text-slate-700 dark:text-slate-300">View and manage your evaluations.</p>
+                            <p className="text-slate-700 dark:text-slate-300">How have you been evaluated.</p>
                         </div>
                     </Link>
                 </div>

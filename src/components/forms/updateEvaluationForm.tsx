@@ -3,20 +3,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { updateEvaluation } from '../../api';
 import Button from '../button';
 import Input from '../input';
-
-interface UpdateEvaluationFormProps {
-    evaluationId: string;
-    initialScore: number;
-    initialComments: string;
-    token: string;
-    onClose: () => void;
-    onUpdateSuccess: () => void;
-}
-
-export interface UpdateEvaluationFormData {
-    score: number;
-    comments: string;
-}
+import { EvaluationData, UpdateEvaluationFormProps } from '../../types';
 
 const UpdateEvaluationForm: React.FC<UpdateEvaluationFormProps> = ({
     evaluationId,
@@ -26,7 +13,7 @@ const UpdateEvaluationForm: React.FC<UpdateEvaluationFormProps> = ({
     onClose,
     onUpdateSuccess
 }) => {
-    const { register, handleSubmit, formState: { errors }, reset } = useForm<UpdateEvaluationFormData>();
+    const { register, handleSubmit, formState: { errors }, reset } = useForm<EvaluationData>();
     const [formError, setFormError] = useState('');
     const [loading, setLoading] = useState(false);
 
@@ -37,7 +24,7 @@ const UpdateEvaluationForm: React.FC<UpdateEvaluationFormProps> = ({
         });
     }, [initialScore, initialComments, reset]);
 
-    const onSubmit: SubmitHandler<UpdateEvaluationFormData> = async (data) => {
+    const onSubmit: SubmitHandler<EvaluationData> = async (data) => {
         setLoading(true);
         setFormError('');
         try {
