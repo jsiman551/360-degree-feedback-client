@@ -7,8 +7,16 @@ import Header from '../components/header';
 // Create a mock store
 const mockStore = configureStore();
 
+// Define the shape of your initial state
+interface InitialState {
+    user?: {
+        name: string;
+        isLoggedIn: boolean;
+    };
+}
+
 // Helper function to render with Redux
-const renderWithRedux = (component, { initialState } = {}) => {
+const renderWithRedux = (component: React.ReactNode, { initialState }: { initialState?: InitialState } = {}) => {
     const store = mockStore(initialState);
     return {
         ...render(<Provider store={store}><BrowserRouter>{component}</BrowserRouter></Provider>),
