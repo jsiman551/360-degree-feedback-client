@@ -2,11 +2,11 @@ import React, { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { fetchEmployeeEvaluations } from '../../redux/thunks/evaluationThunks';
-import Header from '../header';
-import Footer from '../footer';
-import Loading from '../loading';
-import Button from '../button';
-import Report from '../report';
+import Header from '../../components/header';
+import Footer from '../../components/footer';
+import Loading from '../../components/loading';
+import Button from '../../components/button';
+import Report from '../../components/report';
 import { renderStars } from '../../utils/helpers';
 
 const EvaluationList: React.FC = () => {
@@ -29,7 +29,7 @@ const EvaluationList: React.FC = () => {
             <Header />
             <main className="flex-grow p-4">
                 {loading ? (
-                    <Loading size="lg" />
+                    <Loading size="lg" className='h-96' />
                 ) : error ? (
                     <p className="text-red-600 dark:text-red-400 text-center">{error}</p>
                 ) : (

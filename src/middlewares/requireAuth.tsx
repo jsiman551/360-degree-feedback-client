@@ -3,7 +3,7 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 import { useAppSelector, useAppDispatch } from '../hooks/redux';
 import { logout } from '../redux/slices/authSlice';
-import Dashboard from '../components/dashboard';
+import Dashboard from '../pages/dashboard';
 
 interface RequireAuthProps {
     allowedRoles?: string[];

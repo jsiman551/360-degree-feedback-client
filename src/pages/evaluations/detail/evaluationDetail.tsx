@@ -2,12 +2,12 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
 import { fetchEvaluationById } from '../../../redux/thunks/evaluationThunks';
-import Header from '../../header';
-import Footer from '../../footer';
-import Loading from '../../loading';
-import Button from '../../button';
-import UpdateEvaluationForm from '../../forms/updateEvaluationForm';
-import AddFeedbackForm from '../../forms/addFeedbackForm';
+import Header from '../../../components/header';
+import Footer from '../../../components/footer';
+import Loading from '../../../components/loading';
+import Button from '../../../components/button';
+import UpdateEvaluationForm from '../../../components/forms/updateEvaluationForm';
+import AddFeedbackForm from '../../../components/forms/addFeedbackForm';
 import { renderStars } from '../../../utils/helpers';
 
 const EvaluationDetail: React.FC = () => {
@@ -43,7 +43,7 @@ const EvaluationDetail: React.FC = () => {
             <Header />
             <main className="flex-grow p-4">
                 {loading ? (
-                    <Loading size="lg" />
+                    <Loading size="lg" className='h-96' />
                 ) : error ? (
                     <p className="text-red-600 dark:text-red-400 text-center">{error}</p>
                 ) : (

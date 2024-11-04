@@ -2,12 +2,12 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../../hooks/redux';
 import { fetchEmployees } from '../../redux/thunks/employeeThunks';
-import Footer from '../footer';
-import Header from '../header';
-import Loading from '../loading';
-import Button from '../button';
-import RegisterForm from '../forms/registerForm';
-import EvaluationForm from '../forms/evaluationForm';
+import Footer from '../../components/footer';
+import Header from '../../components/header';
+import Loading from '../../components/loading';
+import Button from '../../components/button';
+import RegisterForm from '../../components/forms/registerForm';
+import EvaluationForm from '../../components/forms/evaluationForm';
 import EmployeeCard from './cards/employeeCard';
 
 const EmployeeList: React.FC = () => {
@@ -41,7 +41,7 @@ const EmployeeList: React.FC = () => {
             <Header />
             <main className="flex-grow p-4">
                 {loading ? (
-                    <Loading size='lg' />
+                    <Loading size='lg' className='h-96' />
                 ) : error ? (
                     <h1 className="text-red-600 dark:text-red-400 text-center">{error}</h1>
                 ) : (

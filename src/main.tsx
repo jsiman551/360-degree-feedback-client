@@ -9,7 +9,7 @@ import Loading from './components/loading.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <Provider store={store}>
-    <PersistGate loading={<Loading size='lg' />} persistor={persistor}>
+    <PersistGate loading={<Loading size='lg' className='h-96' />} persistor={persistor}>
       <StrictMode>
         <App />
       </StrictMode>

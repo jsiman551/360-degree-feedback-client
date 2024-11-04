@@ -1,6 +1,6 @@
 import React from "react";
 import { EmployeeCardProps } from "../../../types";
-import Button from "../../button";
+import Button from "../../../components/button";
 
 const EmployeeCard: React.FC<EmployeeCardProps> = ({ employee, onEvaluate, onView, isCurrentUser }) => (
     <div className={`bg-slate-100 dark:bg-slate-800 shadow-lg rounded-lg p-4 m-2 ${isCurrentUser ? 'border border-blue-500' : ''}`}>

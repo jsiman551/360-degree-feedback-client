@@ -1,11 +1,11 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import LoginForm from "./components/forms/loginForm";
-import RequireAuth from './middlewares/RequireAuth';
-import Dashboard from './components/dashboard';
-import EmployeeList from './components/employees/employeeList';
-import EvaluationList from './components/evaluations/evaluationsList';
-import EvaluationDetails from './components/evaluations/detail';
+import RequireAuth from './middlewares/requireAuth';
+import Dashboard from './pages/dashboard';
+import EmployeeList from './pages/employees/employeeList';
+import EvaluationList from './pages/evaluations/evaluationsList';
+import EvaluationDetails from './pages/evaluations/detail';
 
 const App: React.FC = () => {
   return (

@@ -2,9 +2,9 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { fetchEmployeeReport } from '../../redux/thunks/reportThunks';
-import Footer from '../footer';
-import Header from '../header';
-import Report from '../report';
+import Footer from '../../components/footer';
+import Header from '../../components/header';
+import Report from '../../components/report';
 
 const Dashboard: React.FC = () => {
     const dispatch = useAppDispatch();
