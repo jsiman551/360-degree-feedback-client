@@ -1,4 +1,4 @@
-# Employee Performance Management System
+# Employee Performance Management App
 
 Este proyecto es una aplicación de gestión de evaluaciones de rendimiento de empleados. Permite a los administradores y managers gestionar empleados, realizar evaluaciones y generar reportes de desempeño. Los empleados pueden visualizar sus evaluaciones y ver un reporte de su rendimiento.
 
@@ -61,7 +61,7 @@ npm run start
 
 - **`src/hooks`**: Contiene hooks personalizados que facilitan la interacción con la store de Redux y otros hooks React personalizados específicos de la aplicación.
 
-- **`src/middlewares`**: Middlewares que gestionan tareas como la autenticación y el manejo de errores en las peticiones.
+- **`src/middlewares`**: Middlewares que gestionan tareas como la autenticación.
 
 - **`src/pages`**: Páginas principales como Dashboard, Employees, etc.
 
