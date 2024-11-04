@@ -6,6 +6,7 @@ import Header from '../header';
 import Footer from '../footer';
 import Loading from '../loading';
 import Button from '../button';
+import Report from '../report';
 import { renderStars } from '../../utils/helpers';
 
 const EvaluationList: React.FC = () => {
@@ -13,7 +14,7 @@ const EvaluationList: React.FC = () => {
     const { employeeId } = useParams<{ employeeId: string }>();
     const dispatch = useAppDispatch();
     const { evaluations, loading, error } = useAppSelector((state) => state.evaluations);
-    const { token } = useAppSelector((state) => state.auth);
+    const { token, user } = useAppSelector((state) => state.auth);
 
     useEffect(() => {
         if (employeeId && token) {
@@ -45,6 +46,11 @@ const EvaluationList: React.FC = () => {
                             >
                                 Back
                             </Button>
+
+                            {user?.id !== employeeId && (
+                                <Report employeeId={employeeId} token={token} />
+                            )}
+
                             {evaluations.length > 0 ? (
                                 <ul className="space-y-4">
                                     {evaluations.map((evaluation) => (

@@ -1,7 +1,8 @@
-import { EmployeeType } from "../../../types";
+import React from "react";
+import { EmployeeCardProps } from "../../../types";
 import Button from "../../button";
 
-const EmployeeCard: React.FC<{ employee: EmployeeType; onEvaluate: (id: string) => void; onView: (id: string) => void; isCurrentUser: boolean }> = ({ employee, onEvaluate, onView, isCurrentUser }) => (
+const EmployeeCard: React.FC<EmployeeCardProps> = ({ employee, onEvaluate, onView, isCurrentUser }) => (
     <div className={`bg-slate-100 dark:bg-slate-800 shadow-lg rounded-lg p-4 m-2 ${isCurrentUser ? 'border border-blue-500' : ''}`}>
         <h2 className="font-bold">{employee.username}</h2>
         <p>ID: {employee._id}</p>

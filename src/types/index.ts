@@ -76,6 +76,23 @@ export type UpdateEvaluationFormProps = {
     onUpdateSuccess: () => void;
 }
 
+export type LoadingProps = {
+    size?: 'xs' | 'sm' | 'md' | 'lg';
+    className?: string;
+}
+
+export type ReportProps = {
+    employeeId: string | undefined;
+    token: string | null;
+}
+
+export type EmployeeCardProps = {
+    employee: EmployeeType;
+    onEvaluate: (id: string) => void;
+    onView: (id: string) => void;
+    isCurrentUser: boolean
+}
+
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     variant?: "solid" | "outline" | "ghost" | "link";
     color?: "primary" | "secondary" | "accent" | "neutral";
@@ -87,8 +104,4 @@ export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> 
     label?: string;
     variant?: 'primary' | 'secondary' | 'accent' | 'info' | 'success' | 'warning' | 'error';
     inputSize?: 'input-lg' | 'input-md' | 'input-sm' | 'input-xs';
-}
-
-export interface LoadingProps {
-    size?: 'xs' | 'sm' | 'md' | 'lg';
 }
