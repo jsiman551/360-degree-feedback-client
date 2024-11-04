@@ -4,7 +4,7 @@ import { LoadingProps } from '../types';
 const Loading: React.FC<LoadingProps> = ({ size = 'md', className = "" }) => {
     return (
         <div className={`flex flex-col items-center justify-center ${className}`}>
-            <div className={`loading loading-spinner loading-${size}`} />
+            <div data-testid="loading-spinner" className={`loading loading-spinner loading-${size}`} />
         </div>
     );
 };

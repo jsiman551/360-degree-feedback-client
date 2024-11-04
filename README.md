@@ -76,3 +76,8 @@ npm run start
 - **`src/index.css`**: Archivo CSS que contiene estilos globales para toda la aplicación.
 
 - **`src/main.tsx`**: Punto de entrada de la aplicación donde se monta el componente raíz `App` en el DOM.
+
+## tests
+```bash
+npm run test
+```

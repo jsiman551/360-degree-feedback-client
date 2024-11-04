@@ -33,8 +33,9 @@ const AddFeedbackForm: React.FC<AddFeedbackFormProps> = ({ evaluationId, token, 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             {formError && <p className="text-red-600 dark:text-red-400">{formError}</p>}
             <div>
-                <label className="label text-slate-800 dark:text-slate-100">Score</label>
+                <label htmlFor="score" className="label text-slate-800 dark:text-slate-100">Score</label>
                 <Input
+                    id="score"
                     type="number"
                     {...register('score', {
                         required: 'Score is required',
@@ -47,8 +48,9 @@ const AddFeedbackForm: React.FC<AddFeedbackFormProps> = ({ evaluationId, token, 
                 {errors.score && <p className="text-red-500 text-sm">{errors.score.message}</p>}
             </div>
             <div>
-                <label className="label text-slate-800 dark:text-slate-100">Feedback</label>
+                <label htmlFor="feedbackText" className="label text-slate-800 dark:text-slate-100">Feedback</label>
                 <textarea
+                    id="feedbackText"
                     {...register('feedbackText', { required: 'Feedback is required' })}
                     className="textarea textarea-bordered w-full dark:bg-slate-700 dark:text-slate-200"
                     disabled={loading}
