@@ -46,13 +46,13 @@ npm run start
 ## Mejoras Futuras
 1. Notificaciones de Feedback: Implementar un sistema de notificaciones para informar a los empleados cuando reciban nuevo feedback.
 
-## Descripción de las Carpetas Principales
 2. Exportación de Reportes: Permitir que los reportes puedan exportarse en formatos PDF o Excel.
 
 3. Historial de Evaluaciones: Implementar una página que muestre el historial de evaluaciones de cada empleado, con filtros por fecha y puntaje.
 
 4. Mejorar la Interfaz de Usuario: Refinar los estilos de los componentes y mejorar la UX en dispositivos móviles.
 
+## Descripción de las Carpetas Principales
 - **`src/api`**: Contiene funciones para realizar peticiones HTTP al backend, centralizando la lógica de las llamadas API y facilitando su reutilización en los componentes.
   
 - **`src/components`**: Incluye componentes React reutilizables que se usan en distintas partes de la aplicación, como botones, formularios, encabezados, y otros componentes de UI.
