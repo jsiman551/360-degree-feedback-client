@@ -1,83 +1,81 @@
+
 # Employee Performance Management App
 
-Este proyecto es una aplicación de gestión de evaluaciones de rendimiento de empleados. Permite a los administradores y managers gestionar empleados, realizar evaluaciones y generar reportes de desempeño. Los empleados pueden visualizar sus evaluaciones y ver un reporte de su rendimiento.
+This project is an employee performance evaluation management application. It allows administrators and managers to manage employees, conduct evaluations, and generate performance reports. Employees can view their evaluations and see a report of their performance.
 
-## Características
+## Features
 
-- **Gestión de Usuarios**: Permite a los administradores y managers gestionar empleados y sus evaluaciones.
-- **Evaluaciones**: Los empleados pueden ser evaluados por sus supervisores. Las evaluaciones incluyen un puntaje, comentarios y feedback.
-- **Reportes de Rendimiento**: Se generan reportes de rendimiento para cada empleado, mostrando sus evaluaciones y un puntaje promedio.
-- **Sistema de Roles**: Acceso controlado basado en roles (Admin, Manager y Employee).
-- **Autenticación y Autorización**: Validación de autenticación y permisos en cada vista.
+- **User Management**: Allows administrators and managers to manage employees and their evaluations.
+- **Evaluations**: Employees can be evaluated by their supervisors. Evaluations include a score, comments, and feedback.
+- **Performance Reports**: Generates performance reports for each employee, showing their evaluations and an average score.
+- **Role System**: Access control based on roles (Admin, Manager, and Employee).
+- **Authentication and Authorization**: Authentication validation and permission checks in each view.
 
-## Requisitos Previos
+## Prerequisites
 
 - **Node.js** (>= 14.x)
-- **npm** o **yarn**
-- **Backend API** con los endpoints documentados en el repositorio [Endpoints](https://github.com/jsiman551/360-degree-feedback-api).
+- **npm** or **yarn**
+- **Backend API** with the endpoints documented in the repository [Endpoints](https://github.com/jsiman551/360-degree-feedback-api).
 
-## Instalación
+## Installation
 
-1. Clona este repositorio:
+1. Clone this repository:
    ```bash
-   git clone https://github.com/tu_usuario/360-degree-feedback-client.git
+   git clone https://github.com/your_username/360-degree-feedback-client.git
    cd 360-degree-feedback-client
    ```
 
-2. Instala las dependencias:
-```bash
-npm install
-```
-3. Ejecuta el proyecto:
-```bash
-npm run start
-```
+2. Install the dependencies:
+   ```bash
+   npm install
+   ```
 
-## Uso de Roles y Autenticación
-1. Admin: Acceso completo a todas las funcionalidades, incluyendo la gestión de todos los roles y acceso exclusivo al registro de empleados.
+3. Run the project:
+   ```bash
+   npm run start
+   ```
 
-2. Manager: Puede ver y agregar evaluaciones, agregar feedback.
+## Roles and Authentication Usage
 
-3. Employee: Solo puede ver sus propias evaluaciones y reportes, y agregar feedback.
+1. **Admin**: Full access to all functionalities, including managing all roles and exclusive access to employee registration.
+2. **Manager**: Can view and add evaluations, and provide feedback.
+3. **Employee**: Can only view their own evaluations and reports and add feedback.
 
-## Autenticación
-1. RequireAuth: Un componente de protección de rutas que verifica si el usuario está autenticado y si el token está vigente. Si el token ha expirado o el usuario no tiene el rol adecuado, redirige al usuario a la página de inicio de sesión.
+## Authentication
+1. **RequireAuth**: A route protection component that verifies if the user is authenticated and if the token is valid. If the token has expired or the user lacks the appropriate role, it redirects the user to the login page.
 
-## Mejoras Futuras
-1. Notificaciones de Feedback: Implementar un sistema de notificaciones para informar a los empleados cuando reciban nuevo feedback.
+## Future Improvements
+1. **Feedback Notifications**: Implement a notification system to inform employees when they receive new feedback.
+2. **Report Exporting**: Allow reports to be exported in PDF or Excel formats.
+3. **Evaluation History**: Implement a page showing each employee's evaluation history, with filters by date and score.
+4. **Enhanced User Interface**: Refine component styles and improve UX on mobile devices.
 
-2. Exportación de Reportes: Permitir que los reportes puedan exportarse en formatos PDF o Excel.
-
-3. Historial de Evaluaciones: Implementar una página que muestre el historial de evaluaciones de cada empleado, con filtros por fecha y puntaje.
-
-4. Mejorar la Interfaz de Usuario: Refinar los estilos de los componentes y mejorar la UX en dispositivos móviles.
-
-## Descripción de las Carpetas Principales
-- **`src/api`**: Contiene funciones para realizar peticiones HTTP al backend, centralizando la lógica de las llamadas API y facilitando su reutilización en los componentes.
+## Main Folder Descriptions
+- **`src/api`**: Contains functions for making HTTP requests to the backend, centralizing the logic of API calls for reuse across components.
   
-- **`src/components`**: Incluye componentes React reutilizables que se usan en distintas partes de la aplicación, como botones, formularios, encabezados, y otros componentes de UI.
+- **`src/components`**: Includes reusable React components used across various parts of the application, such as buttons, forms, headers, and other UI elements.
 
-- **`src/consts`**: Define constantes globales utilizadas a lo largo del proyecto, como rutas de API o mensajes predeterminados.
+- **`src/consts`**: Defines global constants used throughout the project, such as API routes or default messages.
 
-- **`src/hooks`**: Contiene hooks personalizados que facilitan la interacción con la store de Redux y otros hooks React personalizados específicos de la aplicación.
+- **`src/hooks`**: Contains custom hooks that facilitate interaction with the Redux store and other custom React hooks specific to the application.
 
-- **`src/middlewares`**: Middlewares que gestionan tareas como la autenticación.
+- **`src/middlewares`**: Middleware that handles tasks such as authentication.
 
-- **`src/pages`**: Páginas principales como Dashboard, Employees, etc.
+- **`src/pages`**: Main pages such as Dashboard, Employees, etc.
 
-- **`src/redux`**: Configuración de Redux, incluyendo los slices, thunks y la store. Organiza el estado global de la aplicación y centraliza la lógica para modificarlo.
+- **`src/redux`**: Redux configuration, including slices, thunks, and the store. Organizes the application's global state and centralizes logic for modifying it.
 
-- **`src/types`**: Define tipos y interfaces TypeScript para garantizar la consistencia de los datos en toda la aplicación.
+- **`src/types`**: Defines TypeScript types and interfaces to ensure data consistency across the application.
 
-- **`src/utils`**: Funciones auxiliares y utilidades que son independientes de la UI y pueden reutilizarse en diferentes contextos.
+- **`src/utils`**: Auxiliary functions and utilities independent of the UI and reusable in different contexts.
 
-- **`src/App.tsx`**: Componente raíz de la aplicación que configura las rutas y envuelve la aplicación con los proveedores necesarios.
+- **`src/App.tsx`**: Root component of the application that sets up routes and wraps the app with necessary providers.
 
-- **`src/index.css`**: Archivo CSS que contiene estilos globales para toda la aplicación.
+- **`src/index.css`**: CSS file containing global styles for the application.
 
-- **`src/main.tsx`**: Punto de entrada de la aplicación donde se monta el componente raíz `App` en el DOM.
+- **`src/main.tsx`**: Entry point of the application where the root `App` component is mounted to the DOM.
 
-## tests
+## Tests
 ```bash
 npm run test
 ```
